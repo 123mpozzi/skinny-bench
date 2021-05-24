@@ -4,9 +4,10 @@ from utils.Preprocessor import Preprocessor
 from utils.loading_func import load_checkpoint
 from utils.models import Skinny
 from utils.data_org import get_timestamp, get_bench_testset
-from utils.WorkScheduler import WorkScheduler
-#from utils.model_func import save_x ,save_y, predict_function
-from utils.my_loader import bench_predict, single_predict
+from utils.my_loader import bench_predict
+
+
+## Usage: python main.py
 
 
 # Skinny (full model with inception and dense blocks)

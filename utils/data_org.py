@@ -629,13 +629,9 @@ def get_bench_testset(csv_file, count = 15):
 
     filenames = []
     for i in range(count):
-        istr = str(i)
-
-        # zerofill 2 digits
-        if len(istr) == 1:
-            istr = f'0{istr}'
+        istr = str(i).zfill(2)
         
-        filenames.append(f'im000{i}')
+        filenames.append(f'im000{istr}')
 
     #j = 0
     # rewrite csv file
