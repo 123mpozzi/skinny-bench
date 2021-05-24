@@ -60,6 +60,9 @@ mod = Skinny(levels, initial_filters, image_channels, log_dir, load_checkpoint=T
 
 
 out_preds = 'predictions/bench'
-bench_file = 'bench.txt'
-bench_predict(mod, db_csv, out_preds, preprocessor, bench_file)
+
+# save 5 observations
+for i in range(5):
+    bench_file = f'bench{i}.txt'
+    bench_predict(mod, db_csv, out_preds, preprocessor, bench_file)
 

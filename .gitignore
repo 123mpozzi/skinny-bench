@@ -3,5 +3,5 @@ logs
 dataset/ECU
 utils/__pycache__
 __pycache__
-bench.txt
+bench*.txt
 venv
