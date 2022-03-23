@@ -1,0 +1,14 @@
+{
+  "gt": "dataset/ECU/skin_masks",
+  "ori": "dataset/ECU/origin_images",
+  "root": "dataset/ECU",
+  "note": "",
+  "gtf": "",
+  "orif": "",
+  "gtext": "",
+  "oriext": "",
+  "oriprocess" : "",
+  "oriprocessout" : "",
+  "gtprocess" : "",
+  "gtprocessout" : ""
+}

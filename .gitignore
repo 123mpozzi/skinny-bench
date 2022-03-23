@@ -1,7 +1,9 @@
 predictions
 logs
-dataset/ECU
+dataset/*
+!dataset/*.json
 utils/__pycache__
 __pycache__
 bench*.txt
 venv
+.vscode

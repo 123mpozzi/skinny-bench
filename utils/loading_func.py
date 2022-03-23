@@ -49,18 +49,3 @@ def load_pb(pb_filepath):
 
     # copy the model files
     copy_tree(from_path, to_path_pb)
-
-# def load_schmugge_skintone_split(skintone):
-#     !rm dataset/Schmugge/data.csv
-
-#     if skintone == 'dark':
-#         !cp drive/MyDrive/training/skinny/checkpoint-20210523-110554/dark2305_1309.csv dataset/Schmugge/data.csv
-#         print(f'{skintone}(sch) split imported!')
-#     elif skintone == 'medium':
-#         !cp drive/MyDrive/training/skinny/checkpoint-20210523-112308/medium2305_1323.csv dataset/Schmugge/data.csv
-#         print(f'{skintone}(sch) split imported!')
-#     elif skintone == 'light':
-#         !cp drive/MyDrive/training/skinny/checkpoint-20210523-122027/light2305_1420.csv dataset/Schmugge/data.csv
-#         print(f'{skintone}(sch) split imported!')
-#     else:
-#         print(f'no split found for (sch) skintone: {skintone}')

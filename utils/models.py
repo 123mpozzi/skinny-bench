@@ -4,10 +4,11 @@ from abc import abstractmethod
 import tensorflow as tf
 import tensorflow.keras as keras
 import tensorflow.keras.layers as layers
-from tensorflow.keras.utils import plot_model
 from tensorflow.keras.models import load_model
+from tensorflow.keras.utils import plot_model
 
 from .data_org import get_timestamp
+
 
 def inception_module(prev_layer, filters: int, activation=layers.LeakyReLU):
     filters = filters // 4

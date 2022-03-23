@@ -1,11 +1,13 @@
 import os
 import time
-import tensorflow as tf
+
 import cv2
-from .data_org import csv_sep
+import tensorflow as tf
 
+from .bench_utils import hash_dir
+from .data_org import read_csv, split_csv_fields
 
-# custom loader used for predictions
+# Custom loader used for predictions
 
 def my_batch(dataset: tf.data.Dataset, batch_size) -> tf.data.Dataset:
     return dataset.\
@@ -19,9 +21,6 @@ def my_file(path: str) -> list:
 def my_loader(path, preprocessor) -> tf.data.Dataset:
     def my_process(example):
         return {'feature': tf.io.decode_image(tf.io.read_file(example), channels=3, expand_animations = False)}
-    # def my_inout(example):
-    #     output_dict = {'label': example.pop('label')}
-    #     return example, output_dict
 
     #dataset = [(path),]
     dataset = my_file(path)
@@ -33,7 +32,6 @@ def my_loader(path, preprocessor) -> tf.data.Dataset:
     dataset = preprocessor.add_to_graph(dataset)
     t_elapsed = time.time() - t_start
 
-    #dataset = dataset.map(my_inout).cache()
     dataset = dataset.cache()
     return dataset, t_elapsed
 
@@ -48,9 +46,6 @@ def single_predict(model, im_path: str, out_path: str, preprocessor, bench_file)
         # convert to tensor to prevent memory leak https://stackoverflow.com/a/64765018
         tensor = tf.convert_to_tensor(entry['feature'], dtype=tf.float32)
         tensor = tf.expand_dims(tensor, axis=0) # add a dimension
-
-        #model = my_load_model(model_path)
-        model.get_model()
 
         # get time before prediction
         t_start = time.time()
@@ -70,25 +65,22 @@ def single_predict(model, im_path: str, out_path: str, preprocessor, bench_file)
         with open(bench_file, "a") as myfile:
             myfile.write(f'{im_path},{t_elapsed_full}\n')
 
-        #print(t_elapsed_pre)
-        #print(t_elapsed)
-        #print(t_elapsed_full)
-
 def bench_predict(model, csv_file, out_dir: str, preprocessor, bench_file):
     # read the images CSV
-    file = open(csv_file)
-    file3c = file.read().splitlines()
-    file.close()
+    file_content = read_csv(csv_file)
 
-    for entry in file3c:
-        ori_path = entry.split(csv_sep)[0]
-        gt_path = entry.split(csv_sep)[1]
-        note = entry.split(csv_sep)[2]
-        #skint = entry.split(csv_sep)[3]
-
-        ori_basename = os.path.basename(ori_path)
-        ori_filename, ori_ext = os.path.splitext(ori_basename)
+    for entry in file_content:
+        csv_fields = split_csv_fields(entry)
+        note = csv_fields[2]
 
         if note == 'te':
-            out_path = os.path.join(out_dir, f'{ori_filename}.png')
+            ori_path = csv_fields[0]
+            ori_basename = os.path.basename(ori_path)
+            ori_filename, ori_ext = os.path.splitext(ori_basename)
+
+            out_path = os.path.join(out_dir, 'p', f'{ori_filename}.png')
             single_predict(model, ori_path, out_path, preprocessor, bench_file)
+    
+    predictions_hash = hash_dir(out_dir)
+    print(predictions_hash)
+    return predictions_hash
