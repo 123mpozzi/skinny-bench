@@ -1,8 +1,9 @@
 [ecu]: https://documents.uow.edu.au/~phung/download.html "ECU download page"
 
-
+[thesis]: https://github.com/123mpozzi/skin-detection-thesis "Human Skin Detection In Color Images"
 # Skinny-Bench
 Calculating inference time of the Skinny network.  
+This work is part of my [Bachelor thesis][thesis].
 
 #### Original Paper
 T. Tarasiewicz, J. Nalepa, and M. Kawulok. “Skinny: A Lightweight U-net for Skin Detection and Segmentation”. In: 2020 IEEE International Conference on Image Processing (ICIP). IEEE. 2020, pp. 2386–2390. https://doi.org/10.1109/ICIP40778.2020.9191209.
